@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="./style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="box">
+      <div class="inputBox">
+        <input
+          type="password"
+          id="pswrd"
+          placeholder="Password"
+          onkeyup="checkPassword(this.value)"
+        />
+        <span id="toggleBtn"></span>
+      </div>
+      <div class="validation" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
+        <ul>
+          <li id="lower">アルファベット(小文字)を含んでください。</li>
+          <li id="upper">アルファベット(大文字)を含んでください。</li>
+          <li id="number">数字を含んでください。</li>
+          <li id="special">特殊文字を含んでください。</li>
+          <li id="length">8文字以上の長さにしてください。</li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      let pswrd = document.getElementById("pswrd");
+      let toggleBtn = document.getElementById("toggleBtn");
+
+      let lowerCase = document.getElementById("lower");
+      let upperCase = document.getElementById("upper");
+      let digit = document.getElementById("number");
+      let specialChar = document.getElementById("special");
+      let minLength = document.getElementById("length");
+
+      function checkPassword(data) {
+        // 正規表現
+        const lower = new RegExp("(?=.*[a-z])");
+        const upper = new RegExp("(?=.*[A-Z])");
+        const number = new RegExp("(?=.*[0-9])");
+        const special = new RegExp("(?=.*[!@#\$&\^&\*])");
+        const length = new RegExp("(?=.{8,})");
+
+        // Lower validate
+        if (lower.test(data)) {
+          lowerCase.classList.add("valid");
+        } else lowerCase.classList.remove("valid");
+        // Upper validate
+        if (upper.test(data)) {
+          upperCase.classList.add("valid");
+        } else upperCase.classList.remove("valid");
+        // Number validate
+        if (number.test(data)) {
+          digit.classList.add("valid");
+        } else digit.classList.remove("valid");
+        // Special validate
+        if (special.test(data)) {
+          specialChar.classList.add("valid");
+        } else specialChar.classList.remove("valid");
+        // minimum length validate
+        if (length.test(data)) {
+          minLength.classList.add("valid");
+        } else minLength.classList.remove("valid");
+      }
+
+      toggleBtn.onclick = () => {
+        if (pswrd.type === "password") {
+          pswrd.setAttribute("type", "text");
+          toggleBtn.classList.add("hide");
+        } else {
+          pswrd.setAttribute("type", "password");
+          toggleBtn.classList.remove("hide");
+        }
+      };
+    </script>
+    <script type="text/javascript" src="./node_modules/vanilla-tilt/dist/vanilla-tilt.js"></script>
+  </body>
+</html>
