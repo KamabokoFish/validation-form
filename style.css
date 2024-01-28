@@ -19,7 +19,7 @@ body {
 .box {
   position: relative;
   width: 300px;
-  scale:1.05;
+  scale:1.2;
 }
 
 .box .inputBox {
