@@ -16,12 +16,7 @@
   <body>
     <div class="box">
       <div class="inputBox">
-        <input
-          type="password"
-          id="pswrd"
-          placeholder="Password"
-          onkeyup="checkPassword(this.value)"
-        />
+        <input type="password" id="pswrd" placeholder="Password" />
         <span id="toggleBtn"></span>
       </div>
       <div
@@ -49,7 +44,9 @@
       let specialChar = document.getElementById("special");
       let minLength = document.getElementById("length");
 
-      function checkPassword(data) {
+      function checkPassword(e) {
+        // console.log(e.target.value)
+
         // 正規表現
         const lower = new RegExp("(?=.*[a-z])");
         const upper = new RegExp("(?=.*[A-Z])");
@@ -58,26 +55,28 @@
         const length = new RegExp("(?=.{8,})");
 
         // Lower validate
-        if (lower.test(data)) {
+        if (lower.test(e.target.value)) {
           lowerCase.classList.add("valid");
         } else lowerCase.classList.remove("valid");
         // Upper validate
-        if (upper.test(data)) {
+        if (upper.test(e.target.value)) {
           upperCase.classList.add("valid");
         } else upperCase.classList.remove("valid");
         // Number validate
-        if (number.test(data)) {
+        if (number.test(e.target.value)) {
           digit.classList.add("valid");
         } else digit.classList.remove("valid");
         // Special validate
-        if (special.test(data)) {
+        if (special.test(e.target.value)) {
           specialChar.classList.add("valid");
         } else specialChar.classList.remove("valid");
         // minimum length validate
-        if (length.test(data)) {
+        if (length.test(e.target.value)) {
           minLength.classList.add("valid");
         } else minLength.classList.remove("valid");
       }
+      
+      pswrd.addEventListener('input',checkPassword)
 
       toggleBtn.onclick = () => {
         if (pswrd.type === "password") {
